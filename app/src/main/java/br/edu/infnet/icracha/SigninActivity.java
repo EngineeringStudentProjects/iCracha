@@ -43,8 +43,11 @@ public class SigninActivity extends AppCompatActivity {
             String pass = mPassword.getText().toString();
 
             if(mLoginHelper.validateLogin(username, pass)){
-                //TODO: CHAMAR MANAGER ACTIVITY
-                setToastMessage("Login efetuado");
+
+                //setToastMessage("Login efetuado");
+                startActivity(new Intent(getApplicationContext(), ManagerActivity.class));
+                finish();
+
             } else {
                 setToastMessage("Usuário ou senha incorretos");
             }

@@ -15,5 +15,34 @@
     <string name="edt_text_full_name">Nome Completo</string>
     <string name="btn_signup">Cadastrar</string>
 
+    <!-- Status Fragment -->
+    <string name="btnTitleScan">Bater Ponto</string>
+    <string name="CurrentStatus">Trabalhando</string>
+    <string name="Username">Pedro</string>
+
+    <!-- Profile Fragment -->
+    <string name="title_profile">Informações Pessoais</string>
+    <string name="label_name">Nome</string>
+    <string name="label_years_old">Idade</string>
+    <string name="label_birthday">Nascimento</string>
+    <string name="label_phone">Telefone</string>
+    <string name="label_email">Email</string>
+    <string name="image_profile_description">Foto de Perfil</string>
+    <string name="txt_name_description">Nome do usuário</string>
+    <string name="txt_year_description">Idade</string>
+    <string name="txt_birthday_description">Data de Nascimento</string>
+    <string name="txt_phone_description">Telefone do usuário</string>
+    <string name="txt_email_description">Email do usuário</string>
+
+    <!-- Strings related to MainActivity -->
+    <string name="scan_barcode_button">Scan barcode</string>
+    <string name="no_barcode_captured">No barcode captured</string>
+    <string name="barcode_error_format">"Error reading barcode: %1$s"</string>
+
+    <!-- Strings related to barcode scanner -->
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
 
 </resources>
