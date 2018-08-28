@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">iCracha</string>
+
+    <!--SIGNIN / SIGNUP-->
+    <string name="img_description_logo">Logo Aplicativo</string>
+    <string name="edt_text_user">Usuário</string>
+    <string name="edt_text_username">Nome de Usuário</string>
+    <string name="edt_text_pass">Senha</string>
+    <string name="edt_text_pass_confirm">Confime a Senha</string>
+    <string name="btn_signin">Entrar</string>
+    <string name="link_signup">Novo Cadastro</string>
+
+    <string name="text_signup_title">Cadastro</string>
+    <string name="edt_text_doc_name">CPF</string>
+    <string name="edt_text_full_name">Nome Completo</string>
+    <string name="btn_signup">Cadastrar</string>
+
+
 </resources>
