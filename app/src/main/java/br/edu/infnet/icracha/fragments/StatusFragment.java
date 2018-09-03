@@ -18,6 +18,8 @@ import com.google.android.gms.vision.barcode.Barcode;
 import br.edu.infnet.icracha.R;
 import br.edu.infnet.icracha.barcode.BarcodeCaptureActivity;
 
+import static br.edu.infnet.icracha.ManagerActivity.user;
+
 
 /***
  *
@@ -30,7 +32,7 @@ import br.edu.infnet.icracha.barcode.BarcodeCaptureActivity;
  */
 public class StatusFragment extends Fragment {
 
-    private TextView mResultTextView;
+    private TextView mResultTextView, mTxtNome;
     private Button mScanBarcodeButton;
     private final String LOG_TAG = "BARCODE_SCAN";
     private final int BARCODE_READER_REQUEST_CODE = 1;
@@ -50,6 +52,9 @@ public class StatusFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        mTxtNome = getView().findViewById(R.id.txtNome);
+        mTxtNome.setText(user.getName());
 
         mResultTextView = getView().findViewById(R.id.txtStatus);
         mScanBarcodeButton = getView().findViewById(R.id.btnScan);

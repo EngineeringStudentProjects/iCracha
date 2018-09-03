@@ -1,28 +1,32 @@
 package br.edu.infnet.icracha;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import br.edu.infnet.icracha.fragments.ProfileEditFragment;
 import br.edu.infnet.icracha.fragments.ProfileFragment;
 import br.edu.infnet.icracha.fragments.StatusFragment;
+import br.edu.infnet.icracha.user.User;
 
 public class ManagerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawerLayout;
     private Fragment mFragment;
+    public static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,9 @@ public class ManagerActivity extends AppCompatActivity
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        user = (User) getIntent().getSerializableExtra("user");
+        Toast.makeText(getApplicationContext(), "Usuário: " + user.getUsername(), Toast.LENGTH_SHORT).show();
 
         setFirstFragment();
 
@@ -61,8 +68,8 @@ public class ManagerActivity extends AppCompatActivity
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
-            case R.id.action_settings:
-                return true;
+            /*case R.id.action_settings:
+                return true;*/
         }
 
         return super.onOptionsItemSelected(item);
@@ -100,6 +107,13 @@ public class ManagerActivity extends AppCompatActivity
     private void setFirstFragment(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         mFragment = new StatusFragment();
+        transaction.replace(R.id.content_frame, mFragment);
+        transaction.commit();
+    }
+
+    public void goToFragment(Fragment fragment){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        mFragment = fragment;
         transaction.replace(R.id.content_frame, mFragment);
         transaction.commit();
     }

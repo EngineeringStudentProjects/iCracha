@@ -2,11 +2,13 @@ package br.edu.infnet.icracha.fragments;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import br.edu.infnet.icracha.ManagerActivity;
 import br.edu.infnet.icracha.R;
 
 /**
@@ -14,6 +16,7 @@ import br.edu.infnet.icracha.R;
  */
 public class ProfileFragment extends Fragment {
 
+    private FloatingActionButton mBtnEdit;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -27,4 +30,22 @@ public class ProfileFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mBtnEdit = getView().findViewById(R.id.btnEdit);
+
+        mBtnEdit.setOnClickListener(editProfile);
+
+    }
+
+    private View.OnClickListener editProfile = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            ((ManagerActivity)getActivity()).goToFragment(new ProfileEditFragment());
+
+        }
+    };
 }

@@ -15,19 +15,19 @@ public class LoginHelper {
         mUserDao = new UserDAO();
     }
 
-    public boolean validateLogin(String username, String password){
+    public User validateLogin(String username, String password){
 
         mUsers = mUserDao.listar();
 
         for(User user : mUsers){
             if(user.getUsername().equals(username)){
                 if(HashHandler.hashedString(password).equals(user.getPassword())){
-                    return true;
+                    return user;
                 }
             }
         }
 
-        return false;
+        return null;
     }
 
     public boolean userExists(User user){
