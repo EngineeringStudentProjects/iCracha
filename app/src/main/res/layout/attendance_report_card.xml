@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            >
+
+            <TextView
+                android:id="@+id/report_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="32sp"
+                android:padding="10dp"
+                android:text="01"
+                />
+
+            <TextView
+                android:id="@+id/report_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/report_day"
+                android:layout_alignParentStart="true"
+                android:padding="2dp"
+                android:text="01"
+                />
+
+            <TextView
+                android:id="@+id/report_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/report_day"
+                android:layout_toRightOf="@id/report_month"
+                android:padding="2dp"
+                android:text="2018"
+                />
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/lvw_report_time"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            >
+        </ListView>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

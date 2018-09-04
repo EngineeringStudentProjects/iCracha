@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import br.edu.infnet.icracha.fragments.AttendanceReportFragment;
 import br.edu.infnet.icracha.fragments.ProfileEditFragment;
 import br.edu.infnet.icracha.fragments.ProfileFragment;
 import br.edu.infnet.icracha.fragments.StatusFragment;
@@ -42,7 +43,7 @@ public class ManagerActivity extends AppCompatActivity
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
         user = (User) getIntent().getSerializableExtra("user");
-        Toast.makeText(getApplicationContext(), "Usuário: " + user.getUsername(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Usuário: " + user.getUsername(), Toast.LENGTH_SHORT).show();
 
         setFirstFragment();
 
@@ -88,6 +89,11 @@ public class ManagerActivity extends AppCompatActivity
                 break;
             case R.id.navigationItemProfile:
                 mFragment = new ProfileFragment();
+                transaction.replace(R.id.content_frame, mFragment);
+                transaction.commit();
+                break;
+            case R.id.navigationItemAttendanceReport:
+                mFragment = new AttendanceReportFragment();
                 transaction.replace(R.id.content_frame, mFragment);
                 transaction.commit();
                 break;

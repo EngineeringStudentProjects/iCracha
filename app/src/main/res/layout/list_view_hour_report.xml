@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    >
+
+    <TextView
+        android:id="@+id/txt_report_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:text="00:00"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/txt_report_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="Entrada"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        />
+
+
+</RelativeLayout>

@@ -50,11 +50,17 @@ public class StatusFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onResume() {
+        super.onResume();
 
         mTxtNome = getView().findViewById(R.id.txtNome);
         mTxtNome.setText(user.getName());
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         mResultTextView = getView().findViewById(R.id.txtStatus);
         mScanBarcodeButton = getView().findViewById(R.id.btnScan);

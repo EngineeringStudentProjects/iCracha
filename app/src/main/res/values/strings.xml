@@ -47,13 +47,16 @@
 
     <!-- Strings related to MainActivity -->
     <string name="scan_barcode_button">Scan barcode</string>
-    <string name="no_barcode_captured">No barcode captured</string>
-    <string name="barcode_error_format">"Error reading barcode: %1$s"</string>
+    <string name="no_barcode_captured">QRCode não capturado</string>
+    <string name="barcode_error_format">"Erro lendo QRCode: %1$s"</string>
 
     <!-- Strings related to barcode scanner -->
     <string name="ok">OK</string>
-    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
-    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
-    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="permission_camera_rationale">Acesso à câmera é necessário para leitura do código</string>
+    <string name="no_camera_permission">Esta aplicação não pode rodar, pois não possui permissão de acesso à câmera.</string>
+    <string name="low_storage_error">Aplicativo não pode rodar normalmente por falta de espaço em disco.</string>
+
+    <!-- Strings related to report fragment -->
+    <string name="placeholder_report_day">01</string>
 
 </resources>
