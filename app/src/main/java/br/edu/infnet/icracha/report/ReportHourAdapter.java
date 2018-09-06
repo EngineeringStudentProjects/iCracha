@@ -38,8 +38,17 @@ public class ReportHourAdapter extends ArrayAdapter<ReportHour> {
         TextView txtReportHour = convertView.findViewById(R.id.txt_report_hour);
         TextView txtReportStatus = convertView.findViewById(R.id.txt_report_status);
 
+        String status;
+
+        if(reportHour.getStatus()){
+            status = "Na Empresa";
+
+        } else {
+            status = "Fora da Empresa";
+        }
+
         txtReportHour.setText(reportHour.getHour());
-        txtReportStatus.setText(reportHour.getStatus());
+        txtReportStatus.setText(status);
 
         return convertView;
 

@@ -4,58 +4,40 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.infnet.icracha.user.User;
+
 public class AttendanceReport implements Serializable {
 
-    private int mDay;
-    private int mMonth;
-    private int mYear;
-    private List<ReportHour> mReportHourList;
+    private String date;
+    private String cpf;
+    //private List<ReportHour> mReportHourList;
 
-    private AttendanceReport(){
-        dummyList();
-    }
+    private AttendanceReport(){ }
 
-    public AttendanceReport(int day, int month, int year) {
+    public AttendanceReport(String date, String cpf) {
         this();
-        this.mDay = day;
-        this.mMonth = month;
-        this.mYear = year;
+        this.date = date;
+        this.cpf = cpf;
     }
 
-    public int getDay() {
-        return mDay;
+    /*public AttendanceReport(String date, String cpf, List<ReportHour> reportHourList) {
+        this(date, cpf);
+        this.mReportHourList = reportHourList;
+    }*/
+
+    public String getDate() {
+        return date;
     }
 
-    public int getMonth() {
-        return mMonth;
+    public String getUser() {
+        return cpf;
     }
 
-    public int getYear() {
-        return mYear;
-    }
-
-    public List<ReportHour> getmReportHourList() {
+    /*public List<ReportHour> getmReportHourList() {
         return mReportHourList;
     }
 
-    public void setmReportHourList(List<ReportHour> mReportHourList) {
-        this.mReportHourList = mReportHourList;
-    }
-
-    private void dummyList(){
-        List<ReportHour> lista = new ArrayList<>();
-
-        boolean status = true;
-
-        for( int i = 1; i < 5; i++){
-            lista.add(new ReportHour(
-                    (7 + (i * 2)) + ":" + (i * 10),
-                    status ? "Entrada" : "saída"
-            ));
-
-            status = !status;
-        }
-
-        mReportHourList = lista;
-    }
+    public void setmReportHour(ReportHour reportHour) {
+        this.mReportHourList.add(reportHour);
+    }*/
 }

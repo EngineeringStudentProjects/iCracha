@@ -19,6 +19,15 @@
     <string name="btnTitleScan">Bater Ponto</string>
     <string name="CurrentStatus">Na Empresa</string>
     <string name="Username">Pedro</string>
+    <string name="scan_barcode_button">Scan barcode</string>
+    <string name="no_barcode_captured">QRCode não capturado</string>
+    <string name="barcode_error_format">"Erro lendo QRCode: %1$s"</string>
+
+    <!-- Strings related to barcode scanner -->
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Acesso à câmera é necessário para leitura do código</string>
+    <string name="no_camera_permission">Esta aplicação não pode rodar, pois não possui permissão de acesso à câmera.</string>
+    <string name="low_storage_error">Aplicativo não pode rodar normalmente por falta de espaço em disco.</string>
 
     <!-- Profile Fragment -->
     <string name="title_profile">Informações Pessoais</string>
@@ -44,17 +53,6 @@
     <string name="btn_cancel_description">Botão para cancelar</string>
     <string name="btn_save_description">Botão para salvar alterações</string>
     <string name="txt_change_password">Alterar Senha</string>
-
-    <!-- Strings related to MainActivity -->
-    <string name="scan_barcode_button">Scan barcode</string>
-    <string name="no_barcode_captured">QRCode não capturado</string>
-    <string name="barcode_error_format">"Erro lendo QRCode: %1$s"</string>
-
-    <!-- Strings related to barcode scanner -->
-    <string name="ok">OK</string>
-    <string name="permission_camera_rationale">Acesso à câmera é necessário para leitura do código</string>
-    <string name="no_camera_permission">Esta aplicação não pode rodar, pois não possui permissão de acesso à câmera.</string>
-    <string name="low_storage_error">Aplicativo não pode rodar normalmente por falta de espaço em disco.</string>
 
     <!-- Strings related to report fragment -->
     <string name="placeholder_report_day">01</string>

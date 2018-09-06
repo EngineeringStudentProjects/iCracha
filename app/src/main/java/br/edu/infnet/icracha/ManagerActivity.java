@@ -16,10 +16,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.edu.infnet.icracha.DAO.ReportDAO;
 import br.edu.infnet.icracha.fragments.AttendanceReportFragment;
 import br.edu.infnet.icracha.fragments.ProfileEditFragment;
 import br.edu.infnet.icracha.fragments.ProfileFragment;
 import br.edu.infnet.icracha.fragments.StatusFragment;
+import br.edu.infnet.icracha.report.AttendanceReport;
 import br.edu.infnet.icracha.user.User;
 
 public class ManagerActivity extends AppCompatActivity
@@ -27,7 +32,9 @@ public class ManagerActivity extends AppCompatActivity
 
     private DrawerLayout mDrawerLayout;
     private Fragment mFragment;
+    private ReportDAO mReportDao;
     public static User user;
+    public static List<AttendanceReport> mReportList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +50,10 @@ public class ManagerActivity extends AppCompatActivity
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
         user = (User) getIntent().getSerializableExtra("user");
-        //Toast.makeText(getApplicationContext(), "Usuário: " + user.getUsername(), Toast.LENGTH_SHORT).show();
+
+        mReportDao = new ReportDAO(user.getCpf());
+
+        mReportList = mReportDao.listar();
 
         setFirstFragment();
 

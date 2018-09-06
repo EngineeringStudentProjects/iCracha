@@ -11,13 +11,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import br.edu.infnet.icracha.DAO.ReportDAO;
+import br.edu.infnet.icracha.DAO.UserDAO;
 import br.edu.infnet.icracha.R;
 import br.edu.infnet.icracha.barcode.BarcodeCaptureActivity;
+import br.edu.infnet.icracha.report.AttendanceReport;
+import br.edu.infnet.icracha.report.ReportHour;
+import br.edu.infnet.icracha.util.PontoHelper;
 
+import static br.edu.infnet.icracha.ManagerActivity.mReportList;
 import static br.edu.infnet.icracha.ManagerActivity.user;
 
 
@@ -32,10 +43,14 @@ import static br.edu.infnet.icracha.ManagerActivity.user;
  */
 public class StatusFragment extends Fragment {
 
-    private TextView mResultTextView, mTxtNome;
+    private TextView mStatusTextView, mTxtNome, mTxtWarning;
     private Button mScanBarcodeButton;
     private final String LOG_TAG = "BARCODE_SCAN";
     private final int BARCODE_READER_REQUEST_CODE = 1;
+    private final String HASH_BATER_PONTO = "HashBaterPonto";
+
+    private UserDAO mUserDao;
+    private ReportDAO mReportDao;
 
     public StatusFragment() {
         // Required empty public constructor
@@ -53,8 +68,14 @@ public class StatusFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        mUserDao = new UserDAO();
+        mReportDao = new ReportDAO(user.getCpf());
+
         mTxtNome = getView().findViewById(R.id.txtNome);
+        mStatusTextView = getView().findViewById(R.id.txtStatus);
+
         mTxtNome.setText(user.getName());
+        mStatusTextView.setText(getStatus());
 
     }
 
@@ -62,7 +83,7 @@ public class StatusFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mResultTextView = getView().findViewById(R.id.txtStatus);
+        mTxtWarning = getView().findViewById(R.id.txtWarning);
         mScanBarcodeButton = getView().findViewById(R.id.btnScan);
 
         mScanBarcodeButton.setOnClickListener(scanBarCode);
@@ -82,9 +103,9 @@ public class StatusFragment extends Fragment {
             if (resultCode == CommonStatusCodes.SUCCESS){
                 if (data != null){
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
-                    mResultTextView.setText(barcode.displayValue);
+                    setStatusReport(barcode.displayValue);
                 } else {
-                    mResultTextView.setText(R.string.no_barcode_captured);
+                    mTxtWarning.setText(R.string.no_barcode_captured);
                 }
             } else {
                 Log.e(String.valueOf(LOG_TAG), String.format(getString(R.string.barcode_error_format),
@@ -92,6 +113,70 @@ public class StatusFragment extends Fragment {
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void setStatusReport(String status){
+
+        PontoHelper pontoHelper = new PontoHelper();
+
+        if(status.equals(HASH_BATER_PONTO)){
+
+            boolean newStatus = !user.getStatus();
+            user.setStatus(newStatus);
+
+            new Thread(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            mUserDao.salvar(user);
+                        }
+                    }
+            ).start();
+
+            String data = pontoHelper.getDataAtual();
+            String hora = pontoHelper.getHoraAtual();
+
+            ReportHour reportHour = new ReportHour(hora, newStatus);
+
+            AttendanceReport attendanceReport = new AttendanceReport(data, user.getCpf());
+
+            if(!mReportList.isEmpty()){
+
+                boolean existe = false;
+
+                for(int i = 0; i < mReportList.size(); i++){
+
+                    if(mReportList.get(i).getDate().equals(data)) {
+                        attendanceReport = mReportList.get(i);
+                        //attendanceReport.setmReportHour(reportHour);
+                        existe = true;
+                    }
+
+                }
+
+                if(!existe){
+                    //attendanceReport.setmReportHour(reportHour);
+                    mReportList.add(attendanceReport);
+                }
+
+            } else {
+                //attendanceReport.setmReportHour(reportHour);
+                mReportList.add(attendanceReport);
+            }
+
+            mReportDao.salvar(attendanceReport);
+            mStatusTextView.setText(getStatus());
+        }
+    }
+
+    private String getStatus(){
+
+        if(user.getStatus()){
+           return "Na Empresa";
+
+        } else {
+            return "Fora da Empresa";
         }
     }
 

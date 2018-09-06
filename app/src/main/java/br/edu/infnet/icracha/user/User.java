@@ -9,7 +9,7 @@ import br.edu.infnet.icracha.report.AttendanceReport;
 public class User implements Serializable {
 
     private User() {
-        dummyList();
+        //dummyList();
     }
 
     public User(String cpf, String name, String username, String password) {
@@ -20,11 +20,16 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public User(String cpf, String name, String username, String password, boolean status){
+        this(cpf, name, username, password);
+        this.status = status;
+    }
+
     private String cpf;
     private String name;
     private String username;
     private String password;
-    private List<AttendanceReport> attendanceReportList;
+    private boolean status = false;
     //private String phone;
 
     public String getCpf() {
@@ -43,29 +48,12 @@ public class User implements Serializable {
         return password;
     }
 
-    public void setAttendanceReportList(List<AttendanceReport> reportList){
-        this.attendanceReportList = reportList;
+    public void setStatus(boolean status){
+        this.status = status;
     }
 
-    public List<AttendanceReport> getAttendanceReportList() {
-
-        return attendanceReportList;
-
-    }
-
-    private void dummyList(){
-        List<AttendanceReport> lista = new ArrayList<>();
-
-        for( int i = 1; i < 16; i++){
-            lista.add(new AttendanceReport(
-                    i,
-                    04,
-                    2018
-            ));
-
-        }
-
-        attendanceReportList = lista;
+    public boolean getStatus(){
+        return status;
     }
 
 }

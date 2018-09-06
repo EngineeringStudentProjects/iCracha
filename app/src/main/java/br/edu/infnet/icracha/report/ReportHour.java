@@ -4,19 +4,19 @@ import java.io.Serializable;
 
 public class ReportHour implements Serializable {
 
-    public ReportHour(String hour, String status) {
+    public ReportHour(String hour, boolean status) {
         this.mHour = hour;
         this.mStatus = status;
     }
 
     private String mHour;
-    private String mStatus;
+    private boolean mStatus;
 
     public String getHour() {
         return mHour;
     }
 
-    public String getStatus(){
+    public boolean getStatus(){
         return mStatus;
     }
 }

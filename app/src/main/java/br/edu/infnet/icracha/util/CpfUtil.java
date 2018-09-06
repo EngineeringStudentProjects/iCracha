@@ -2,7 +2,8 @@ package br.edu.infnet.icracha.util;
 
 /***
  * Classe para lidar com a validação do CPF
- * @author Pedro
+ * @author Romulo Dakar
+ * "http://desenvolvedor.ninja/dica-validacao-de-cpf-e-cnpj-no-java/"
  *
  */
 public class CpfUtil {

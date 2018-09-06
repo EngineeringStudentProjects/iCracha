@@ -47,12 +47,14 @@ public class AttendanceReportAdapter extends RecyclerView.Adapter {
 
         AttendanceReportViewHolder viewHolder =(AttendanceReportViewHolder) holder;
 
-        viewHolder.reportDay.setText(attendanceReport.getDay() + "");
-        viewHolder.reportMonth.setText(attendanceReport.getMonth() + "");
-        viewHolder.reportYear.setText(attendanceReport.getYear() + "");
+        String[] data = attendanceReport.getDate().split("-");
+
+        viewHolder.reportDay.setText(data[2]);
+        viewHolder.reportMonth.setText(data[1]);
+        viewHolder.reportYear.setText(data[0]);
 
         mLvwReportTime = viewHolder.lvwReportTime;
-        mAdapter = new ReportHourAdapter(contexto, attendanceReport.getmReportHourList());
+        //mAdapter = new ReportHourAdapter(contexto, attendanceReport.getmReportHourList());
         mLvwReportTime.setAdapter(mAdapter);
 
     }

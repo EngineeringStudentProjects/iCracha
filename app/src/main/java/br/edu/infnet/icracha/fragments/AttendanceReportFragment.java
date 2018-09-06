@@ -14,6 +14,7 @@ import android.widget.TextView;
 import br.edu.infnet.icracha.R;
 import br.edu.infnet.icracha.report.AttendanceReportAdapter;
 
+import static br.edu.infnet.icracha.ManagerActivity.mReportList;
 import static br.edu.infnet.icracha.ManagerActivity.user;
 
 /**
@@ -45,7 +46,7 @@ public class AttendanceReportFragment extends Fragment {
         mTxtNome.setText(user.getName());
 
         attendaceList = getActivity().findViewById(R.id.attendance_report_list);
-        AttendanceReportAdapter adapter = new AttendanceReportAdapter(user.getAttendanceReportList());
+        AttendanceReportAdapter adapter = new AttendanceReportAdapter(mReportList);
 
         attendaceList.setLayoutManager(new LinearLayoutManager(getContext()));
 
