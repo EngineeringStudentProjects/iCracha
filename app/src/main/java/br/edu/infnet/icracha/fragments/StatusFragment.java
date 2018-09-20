@@ -9,26 +9,29 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import br.edu.infnet.icracha.DAO.ReportDAO;
-import br.edu.infnet.icracha.DAO.UserDAO;
+import br.edu.infnet.icracha.DAO.ReportHourDAO;
 import br.edu.infnet.icracha.R;
 import br.edu.infnet.icracha.barcode.BarcodeCaptureActivity;
 import br.edu.infnet.icracha.report.AttendanceReport;
 import br.edu.infnet.icracha.report.ReportHour;
+import br.edu.infnet.icracha.report.ReportHourAdapter;
 import br.edu.infnet.icracha.util.PontoHelper;
 
+import static br.edu.infnet.icracha.ManagerActivity.mReportDao;
 import static br.edu.infnet.icracha.ManagerActivity.mReportList;
+import static br.edu.infnet.icracha.ManagerActivity.mUserDao;
 import static br.edu.infnet.icracha.ManagerActivity.user;
 
 
@@ -43,14 +46,19 @@ import static br.edu.infnet.icracha.ManagerActivity.user;
  */
 public class StatusFragment extends Fragment {
 
-    private TextView mStatusTextView, mTxtNome, mTxtWarning;
+    private TextView mStatusTextView, mTxtNome, mTxtWarning, mTxtDataStatus;
+    public ListView lvwReportTime;
     private Button mScanBarcodeButton;
+    private BaseAdapter mAdapter;
+    private List<ReportHour> reportHourList;
+    private PontoHelper pontoHelper;
+
     private final String LOG_TAG = "BARCODE_SCAN";
     private final int BARCODE_READER_REQUEST_CODE = 1;
     private final String HASH_BATER_PONTO = "HashBaterPonto";
 
-    private UserDAO mUserDao;
-    private ReportDAO mReportDao;
+    private ReportHourDAO mReportHourDao;
+
 
     public StatusFragment() {
         // Required empty public constructor
@@ -65,33 +73,39 @@ public class StatusFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        mUserDao = new UserDAO();
-        mReportDao = new ReportDAO(user.getCpf());
-
-        mTxtNome = getView().findViewById(R.id.txtNome);
-        mStatusTextView = getView().findViewById(R.id.txtStatus);
-
-        mTxtNome.setText(user.getName());
-        mStatusTextView.setText(getStatus());
-
-    }
-
-    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        pontoHelper = new PontoHelper();
+
         mTxtWarning = getView().findViewById(R.id.txtWarning);
+        lvwReportTime = getView().findViewById(R.id.lvw_report_time);
         mScanBarcodeButton = getView().findViewById(R.id.btnScan);
 
         mScanBarcodeButton.setOnClickListener(scanBarCode);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mTxtNome = getView().findViewById(R.id.txtNome);
+        mStatusTextView = getView().findViewById(R.id.txtStatus);
+        mTxtDataStatus = getView().findViewById(R.id.txt_date_status);
+
+        mTxtNome.setText(user.getName());
+        mStatusTextView.setText(getStatus());
+        mTxtDataStatus.setText(pontoHelper.getDataFormatada());
+
+        listarHorarioDia();
+
+    }
+
     private View.OnClickListener scanBarCode = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
+            //pegarLocalizacao();
             Intent intent = new Intent(v.getContext(), BarcodeCaptureActivity.class);
             startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
         }
@@ -118,8 +132,6 @@ public class StatusFragment extends Fragment {
 
     private void setStatusReport(String status){
 
-        PontoHelper pontoHelper = new PontoHelper();
-
         if(status.equals(HASH_BATER_PONTO)){
 
             boolean newStatus = !user.getStatus();
@@ -137,35 +149,18 @@ public class StatusFragment extends Fragment {
             String data = pontoHelper.getDataAtual();
             String hora = pontoHelper.getHoraAtual();
 
-            ReportHour reportHour = new ReportHour(hora, newStatus);
+            final AttendanceReport attendanceReport = new AttendanceReport(data, hora, newStatus);
 
-            AttendanceReport attendanceReport = new AttendanceReport(data, user.getCpf());
+            mReportList.add(attendanceReport);
 
-            if(!mReportList.isEmpty()){
-
-                boolean existe = false;
-
-                for(int i = 0; i < mReportList.size(); i++){
-
-                    if(mReportList.get(i).getDate().equals(data)) {
-                        attendanceReport = mReportList.get(i);
-                        //attendanceReport.setmReportHour(reportHour);
-                        existe = true;
+            new Thread(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            mReportDao.salvar(attendanceReport);
+                        }
                     }
-
-                }
-
-                if(!existe){
-                    //attendanceReport.setmReportHour(reportHour);
-                    mReportList.add(attendanceReport);
-                }
-
-            } else {
-                //attendanceReport.setmReportHour(reportHour);
-                mReportList.add(attendanceReport);
-            }
-
-            mReportDao.salvar(attendanceReport);
+            ).start();
             mStatusTextView.setText(getStatus());
         }
     }
@@ -178,6 +173,23 @@ public class StatusFragment extends Fragment {
         } else {
             return "Fora da Empresa";
         }
+    }
+
+    private void listarHorarioDia(){
+
+        PontoHelper pontoHelper = new PontoHelper();
+
+        String data = pontoHelper.getDataAtual();
+
+        reportHourList = new ArrayList<>();
+
+        mAdapter = new ReportHourAdapter(getContext(), reportHourList);
+
+        mReportHourDao = new ReportHourDAO(user.getCpf(), data, mAdapter, reportHourList);
+
+
+        lvwReportTime.setAdapter(mAdapter);
+
     }
 
 }

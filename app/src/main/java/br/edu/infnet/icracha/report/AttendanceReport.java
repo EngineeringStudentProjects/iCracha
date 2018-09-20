@@ -9,35 +9,43 @@ import br.edu.infnet.icracha.user.User;
 public class AttendanceReport implements Serializable {
 
     private String date;
-    private String cpf;
-    //private List<ReportHour> mReportHourList;
+    private String mHour;
+    private boolean mStatus;
 
     private AttendanceReport(){ }
 
-    public AttendanceReport(String date, String cpf) {
+    public AttendanceReport(String date) {
         this();
         this.date = date;
-        this.cpf = cpf;
     }
 
-    /*public AttendanceReport(String date, String cpf, List<ReportHour> reportHourList) {
-        this(date, cpf);
-        this.mReportHourList = reportHourList;
-    }*/
+    public AttendanceReport(String date, String hour, boolean status) {
+        this(date);
+        this.mHour = hour;
+        this.mStatus = status;
+    }
 
     public String getDate() {
         return date;
     }
 
-    public String getUser() {
-        return cpf;
+    public String getHour() {
+        return mHour;
     }
 
-    /*public List<ReportHour> getmReportHourList() {
-        return mReportHourList;
+    public boolean getStatus(){
+        return mStatus;
     }
 
-    public void setmReportHour(ReportHour reportHour) {
-        this.mReportHourList.add(reportHour);
-    }*/
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setHour(String mHour) {
+        this.mHour = mHour;
+    }
+
+    public void setStatus(boolean mStatus) {
+        this.mStatus = mStatus;
+    }
 }

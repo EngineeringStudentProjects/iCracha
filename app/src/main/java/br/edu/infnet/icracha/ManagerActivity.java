@@ -13,15 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.infnet.icracha.DAO.ReportDAO;
+import br.edu.infnet.icracha.DAO.UserDAO;
 import br.edu.infnet.icracha.fragments.AttendanceReportFragment;
-import br.edu.infnet.icracha.fragments.ProfileEditFragment;
 import br.edu.infnet.icracha.fragments.ProfileFragment;
 import br.edu.infnet.icracha.fragments.StatusFragment;
 import br.edu.infnet.icracha.report.AttendanceReport;
@@ -32,7 +31,8 @@ public class ManagerActivity extends AppCompatActivity
 
     private DrawerLayout mDrawerLayout;
     private Fragment mFragment;
-    private ReportDAO mReportDao;
+    public static UserDAO mUserDao;
+    public static ReportDAO mReportDao;
     public static User user;
     public static List<AttendanceReport> mReportList = new ArrayList<>();
 
@@ -50,6 +50,8 @@ public class ManagerActivity extends AppCompatActivity
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
         user = (User) getIntent().getSerializableExtra("user");
+
+        mUserDao = new UserDAO();
 
         mReportDao = new ReportDAO(user.getCpf());
 

@@ -16,7 +16,7 @@ import br.edu.infnet.icracha.R;
 
 public class AttendanceReportAdapter extends RecyclerView.Adapter {
 
-    private List<AttendanceReport> mAttendanceReports;
+    private List<ReportComplete> mReportCompleteList;
 
     private ListView mLvwReportTime;
     private List<ReportHour> reportHourList;
@@ -24,8 +24,8 @@ public class AttendanceReportAdapter extends RecyclerView.Adapter {
 
     private Context contexto;
 
-    public AttendanceReportAdapter(List<AttendanceReport> attendanceReportList){
-        this.mAttendanceReports = attendanceReportList;
+    public AttendanceReportAdapter(List<ReportComplete> reportCompleteList){
+        this.mReportCompleteList = reportCompleteList;
     }
 
     @Override
@@ -43,24 +43,24 @@ public class AttendanceReportAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        AttendanceReport attendanceReport = mAttendanceReports.get(position);
+        ReportComplete reportComplete = mReportCompleteList.get(position);
 
         AttendanceReportViewHolder viewHolder =(AttendanceReportViewHolder) holder;
 
-        String[] data = attendanceReport.getDate().split("-");
+        String[] data = reportComplete.getData().split("-");
 
         viewHolder.reportDay.setText(data[2]);
         viewHolder.reportMonth.setText(data[1]);
         viewHolder.reportYear.setText(data[0]);
 
         mLvwReportTime = viewHolder.lvwReportTime;
-        //mAdapter = new ReportHourAdapter(contexto, attendanceReport.getmReportHourList());
+        mAdapter = new ReportHourAdapter(contexto, reportComplete.getReportHourList());
         mLvwReportTime.setAdapter(mAdapter);
 
     }
 
     @Override
     public int getItemCount() {
-        return mAttendanceReports.size();
+        return mReportCompleteList.size();
     }
 }

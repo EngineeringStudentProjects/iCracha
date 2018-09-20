@@ -14,33 +14,42 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:padding="16dp"
             >
-            <TextView
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:text="Olá " />
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:text="Olá " />
+
+                <TextView
+                    android:id="@+id/txtNome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:text="@string/Username" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/txtNome"
+                android:id="@+id/txtStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
-                android:text="@string/Username" />
+                android:text="@string/CurrentStatus"
+                android:padding="5dp" />
+
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/txtStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            android:text="@string/CurrentStatus"
-            android:padding="5dp" />
 
         <LinearLayout
             style="@style/TextViewDivider">

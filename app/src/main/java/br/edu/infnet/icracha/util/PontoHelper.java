@@ -29,6 +29,14 @@ public class PontoHelper {
 
     }
 
+    public String getDataFormatada(){
+        String ano = doisDigitos(Integer.toString(c.get(Calendar.YEAR)));
+        String mes = doisDigitos(Integer.toString(c.get(Calendar.MONTH) + 1));
+        String dia = doisDigitos(Integer.toString(c.get(Calendar.DAY_OF_MONTH)));
+
+        return dia + "/" + mes + "/" + ano;
+    }
+
     private String doisDigitos(String valor){
 
         if(valor.length() < 2){ return "0" + valor; }

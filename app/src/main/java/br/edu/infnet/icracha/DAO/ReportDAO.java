@@ -2,6 +2,8 @@ package br.edu.infnet.icracha.DAO;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.widget.BaseAdapter;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -14,6 +16,8 @@ import java.util.List;
 import br.edu.infnet.icracha.firebase.FirebaseSingleton;
 import br.edu.infnet.icracha.report.AttendanceReport;
 import br.edu.infnet.icracha.user.User;
+
+import static br.edu.infnet.icracha.ManagerActivity.mReportList;
 
 public class ReportDAO {
 
@@ -33,32 +37,31 @@ public class ReportDAO {
     private ChildEventListener carregar = new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-            AttendanceReport report = dataSnapshot.getValue(AttendanceReport.class);
-            mAttendanceReportList.add(report);
+            //AttendanceReport report = dataSnapshot.getValue(AttendanceReport.class);
+
+            for(DataSnapshot data : dataSnapshot.getChildren()){
+                AttendanceReport report = data.getValue(AttendanceReport.class);
+                mAttendanceReportList.add(report);
+            }
+
+            //Log.i("REPORT_DAO", "" + mAttendanceReportList.size());
+
+            //mAttendanceReportList.add(report);
         }
 
         @Override
         public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-            AttendanceReport report = dataSnapshot.getValue(AttendanceReport.class);
 
-            for(int i = 0; i < mAttendanceReportList.size(); i++){
-                if(mAttendanceReportList.get(i).getDate().equals(report.getDate())){
-                    mAttendanceReportList.set(i, report);
-                    break;
-                }
-            }
+            /*for(DataSnapshot data : dataSnapshot.getChildren()){
+                AttendanceReport report = data.getValue(AttendanceReport.class);
+                mAttendanceReportList.add(report);
+            }*/
+
         }
 
         @Override
         public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-            AttendanceReport report = dataSnapshot.getValue(AttendanceReport.class);
 
-            for(int i = 0; i < mAttendanceReportList.size(); i++){
-                if(mAttendanceReportList.get(i).getDate().equals(report.getDate())){
-                    mAttendanceReportList.remove(report);
-                    break;
-                }
-            }
         }
 
         @Override
@@ -73,7 +76,7 @@ public class ReportDAO {
     };
 
     public void salvar(AttendanceReport attendanceReport){
-        mDatabaseRef.child(attendanceReport.getDate()).setValue(attendanceReport);
+        mDatabaseRef.child(attendanceReport.getDate()).child(attendanceReport.getHour()).setValue(attendanceReport);
     }
 
     public List<AttendanceReport> listar(){

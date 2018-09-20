@@ -46,23 +46,33 @@
             style="@style/TextViewDivider">
         </LinearLayout>
 
-    </LinearLayout>
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="30dp"
-        >
-
-        <ListView
-            android:id="@+id/lvw_report_time"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp"
+            android:orientation="vertical"
             >
-        </ListView>
 
-    </LinearLayout>-->
+            <TextView
+                android:id="@+id/txt_date_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00/00/0000"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                />
+
+            <ListView
+                android:id="@+id/lvw_report_time"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                >
+            </ListView>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtWarning"

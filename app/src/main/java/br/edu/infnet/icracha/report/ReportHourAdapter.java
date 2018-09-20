@@ -41,10 +41,10 @@ public class ReportHourAdapter extends ArrayAdapter<ReportHour> {
         String status;
 
         if(reportHour.getStatus()){
-            status = "Na Empresa";
+            status = "Entrada";
 
         } else {
-            status = "Fora da Empresa";
+            status = "Saída";
         }
 
         txtReportHour.setText(reportHour.getHour());
