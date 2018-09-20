@@ -5,8 +5,8 @@
         <item
             android:id="@+id/navigationItemStatus"
             android:checked="true"
-            android:icon="@drawable/ic_profile"
-            android:title="Status" />
+            android:icon="@drawable/ic_ponto_black_24dp"
+            android:title="Ponto Eletrônico" />
         <item
             android:id="@+id/navigationItemProfile"
             android:checked="true"
@@ -16,6 +16,17 @@
             android:id="@+id/navigationItemAttendanceReport"
             android:icon="@drawable/ic_frequency_report"
             android:title="Relatório" />
+    </group>
+
+    <LinearLayout
+        style="@style/TextViewDivider">
+    </LinearLayout>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/Logout"
+            android:checked="true"
+            android:title="Sair" />
     </group>
 
     <!--<item android:title="Formação">

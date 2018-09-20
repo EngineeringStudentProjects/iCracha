@@ -1,5 +1,6 @@
 package br.edu.infnet.icracha;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -108,6 +109,11 @@ public class ManagerActivity extends AppCompatActivity
                 mFragment = new AttendanceReportFragment();
                 transaction.replace(R.id.content_frame, mFragment);
                 transaction.commit();
+                break;
+            case R.id.Logout:
+                Intent intent = new Intent(this, SigninActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             default:
                 Toast.makeText(this, "Escolha inválida!", Toast.LENGTH_SHORT).show();

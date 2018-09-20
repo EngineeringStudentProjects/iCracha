@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/tela"
     tools:context=".fragments.ProfileFragment">
 
     <RelativeLayout
@@ -25,13 +26,13 @@
                 style="@style/TextViewDivider">
             </LinearLayout>
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/imgProfile"
                 android:layout_width="match_parent"
                 android:layout_marginBottom="10dp"
                 android:src="@drawable/profile"
                 android:contentDescription="@string/image_profile_description"
-                android:layout_height="@dimen/profile_image_height" />
+                android:layout_height="@dimen/profile_image_height" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
