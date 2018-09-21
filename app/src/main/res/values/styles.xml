@@ -59,4 +59,9 @@
         <item name="android:padding">10dp</item>
     </style>
 
+    <!-- FULL SCREEN -->
+    <style name="AppCompat.FullScreen" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 </resources>

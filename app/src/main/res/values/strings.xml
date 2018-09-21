@@ -19,6 +19,7 @@
     <string name="btnTitleScan">Bater Ponto</string>
     <string name="CurrentStatus">Na Empresa</string>
     <string name="Username">Pedro</string>
+    <string name="ative_gps">Ative seu GPS para bater o ponto</string>
     <string name="scan_barcode_button">Scan barcode</string>
     <string name="no_barcode_captured">QRCode não capturado</string>
     <string name="barcode_error_format">"Erro lendo QRCode: %1$s"</string>

@@ -2,6 +2,7 @@ package br.edu.infnet.icracha.fragments;
 
 
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,7 +21,6 @@ import com.google.android.gms.vision.barcode.Barcode;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.infnet.icracha.DAO.ReportDAO;
 import br.edu.infnet.icracha.DAO.ReportHourDAO;
 import br.edu.infnet.icracha.R;
 import br.edu.infnet.icracha.barcode.BarcodeCaptureActivity;
@@ -58,6 +58,8 @@ public class StatusFragment extends Fragment {
     private final String HASH_BATER_PONTO = "HashBaterPonto";
 
     private ReportHourDAO mReportHourDao;
+
+    private LocationManager locationManager;
 
 
     public StatusFragment() {
@@ -186,7 +188,6 @@ public class StatusFragment extends Fragment {
         mAdapter = new ReportHourAdapter(getContext(), reportHourList);
 
         mReportHourDao = new ReportHourDAO(user.getCpf(), data, mAdapter, reportHourList);
-
 
         lvwReportTime.setAdapter(mAdapter);
 

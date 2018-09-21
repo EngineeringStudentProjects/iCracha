@@ -6,8 +6,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SigninActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/AppCompat.FullScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,13 +25,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".SignupActivity"
+        <activity
+            android:name=".SignupActivity"
+            android:parentActivityName=".SigninActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeBar"
-            android:parentActivityName=".SigninActivity" />
-        <activity android:name=".ManagerActivity" android:screenOrientation="portrait" />
-        <activity android:name=".barcode.BarcodeCaptureActivity" android:screenOrientation="portrait" />
-
+            android:theme="@style/AppThemeBar" />
+        <activity
+            android:name=".ManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".barcode.BarcodeCaptureActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SigninActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
