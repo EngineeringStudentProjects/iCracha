@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import br.edu.infnet.icracha.user.User;
 import br.edu.infnet.icracha.util.LoginHelper;
 
 public class SigninActivity extends AppCompatActivity {
@@ -42,15 +43,20 @@ public class SigninActivity extends AppCompatActivity {
             String username = mUsername.getText().toString().trim();
             String pass = mPassword.getText().toString();
 
-            if(mLoginHelper.validateLogin(username, pass)){
+            User user = mLoginHelper.validateLogin(username, pass);
+
+            if(user != null){
 
                 //setToastMessage("Login efetuado");
-                startActivity(new Intent(getApplicationContext(), ManagerActivity.class));
+                Intent intent = new Intent(getApplicationContext(), ManagerActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
                 finish();
 
             } else {
                 setToastMessage("Usuário ou senha incorretos");
             }
+
 
         }
     };

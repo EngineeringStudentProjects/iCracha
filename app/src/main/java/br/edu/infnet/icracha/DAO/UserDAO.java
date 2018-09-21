@@ -7,11 +7,11 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.infnet.icracha.firebase.FirebaseSingleton;
 import br.edu.infnet.icracha.user.User;
 
 public class UserDAO {
@@ -20,7 +20,7 @@ public class UserDAO {
     private List<User> mUsers = new ArrayList<>();
 
     public UserDAO() {
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("users");
+        mDatabaseRef = FirebaseSingleton.getInstance().getDatabase().getReference("users");
         mDatabaseRef.addChildEventListener(carregar);
     }
 

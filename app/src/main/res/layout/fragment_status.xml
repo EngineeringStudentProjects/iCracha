@@ -3,52 +3,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/tela"
     tools:context=".fragments.StatusFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:orientation="vertical"
         android:padding="@dimen/container_padding">
 
-        <TextView
-            android:id="@+id/txtNome"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:padding="10dp"
-            android:text="@string/Username" />
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:text="Olá " />
+
+            <TextView
+                android:id="@+id/txtNome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:text="@string/Username" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txtStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:textSize="16sp"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
             android:text="@string/CurrentStatus"
             android:padding="5dp" />
 
-        <Button
-            android:id="@+id/btnScan"
-            android:text="@string/btnTitleScan"
+        <LinearLayout
+            style="@style/TextViewDivider">
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_gravity="center"/>
+            android:gravity="center"
+            android:padding="16dp"
+            android:orientation="vertical"
+            >
 
-        <TextView
-            android:id="@+id/txtWarning"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="14sp"
-            android:padding="5dp" />
+            <TextView
+                android:id="@+id/txt_date_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00/00/0000"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                />
+
+            <ListView
+                android:id="@+id/lvw_report_time"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                >
+            </ListView>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtWarning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:textSize="14sp"
+        android:padding="5dp" />
+
+    <Button
+        android:id="@+id/btnScan"
+        android:text="@string/btnTitleScan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ButtonStyle"
+        android:layout_gravity="bottom"/>
 
 </FrameLayout>
