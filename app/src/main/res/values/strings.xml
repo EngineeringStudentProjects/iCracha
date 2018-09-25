@@ -3,8 +3,8 @@
 
     <!--SIGNIN / SIGNUP-->
     <string name="img_description_logo">Logo Aplicativo</string>
-    <string name="edt_text_user">Usuário</string>
-    <string name="edt_text_username">Nome de Usuário</string>
+    <string name="edt_text_user">Login (E-mail)</string>
+    <string name="edt_text_email">Login (E-mail)</string>
     <string name="edt_text_pass">Nova Senha</string>
     <string name="edt_text_pass_confirm">Confime a Senha</string>
     <string name="btn_signin">Entrar</string>

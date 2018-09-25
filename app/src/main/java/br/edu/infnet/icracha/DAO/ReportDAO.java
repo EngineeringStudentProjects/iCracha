@@ -29,8 +29,8 @@ public class ReportDAO {
         mDatabaseRef.addChildEventListener(carregar);
     }
 
-    public ReportDAO(String cpf) {
-        mDatabaseRef = FirebaseSingleton.getInstance().getDatabase().getReference("reports").child(cpf);
+    public ReportDAO(String uid) {
+        mDatabaseRef = FirebaseSingleton.getInstance().getDatabase().getReference("reports").child(uid);
         mDatabaseRef.addChildEventListener(carregar);
     }
 
@@ -82,11 +82,6 @@ public class ReportDAO {
     public List<AttendanceReport> listar(){
         return mAttendanceReportList;
     }
-
-    public void excluir(String date){
-        mDatabaseRef.child(date).removeValue();
-    }
-
 
 
 }

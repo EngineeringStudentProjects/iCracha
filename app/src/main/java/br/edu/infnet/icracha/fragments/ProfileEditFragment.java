@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 
@@ -29,6 +30,8 @@ import static br.edu.infnet.icracha.ManagerActivity.user;
  * A simple {@link Fragment} subclass.
  */
 public class ProfileEditFragment extends Fragment {
+
+    private FirebaseAuth mAuth;
 
     private TextView mTxtCpf, mTxtUsername;
     private EditText mEdtName, mEdtBirthday,
@@ -60,7 +63,6 @@ public class ProfileEditFragment extends Fragment {
         mEdtName = getView().findViewById(R.id.edtName);
         mEdtBirthday = getView().findViewById(R.id.edtBirthday);
         mEdtPhone = getView().findViewById(R.id.edtPhone);
-        mEdtEmail = getView().findViewById(R.id.edtEmail);
         mEdtPass = getView().findViewById(R.id.edt_password);
         mEdtPassConf = getView().findViewById(R.id.edt_password_confirm);
 
@@ -71,12 +73,13 @@ public class ProfileEditFragment extends Fragment {
         mEdtName.setText(user.getName());
         mEdtBirthday.setText(user.getBirthday());
         mEdtPhone.setText(user.getPhone());
-        mEdtEmail.setText(user.getEmail());
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        mAuth = FirebaseAuth.getInstance();
 
         mBtnCancel = getView().findViewById(R.id.btnCancel);
         mBtnSave = getView().findViewById(R.id.btnSave);
@@ -100,7 +103,6 @@ public class ProfileEditFragment extends Fragment {
             String name = mEdtName.getText().toString().trim();
             String birthday = mEdtBirthday.getText().toString().trim();
             String phone = mEdtPhone.getText().toString().trim();
-            String email = mEdtEmail.getText().toString().trim();
             String pass = mEdtPass.getText().toString();
             String passConfirm = mEdtPassConf.getText().toString();
 
@@ -117,7 +119,11 @@ public class ProfileEditFragment extends Fragment {
                         if(!pass.contentEquals(passConfirm)){
                             setToastMessage("Senhas Não Conferem");
                         } else {
-                            user.setPassword(HashHandler.hashedString(pass));
+
+                            String hashedPass = HashHandler.hashedString(pass);
+
+                            user.setPassword(hashedPass);
+                            mAuth.getCurrentUser().updatePassword(hashedPass);
                         }
                     }
                 } else {
@@ -125,8 +131,6 @@ public class ProfileEditFragment extends Fragment {
                     user.setName(name);
                     user.setBirthday(birthday);
                     user.setPhone(phone);
-                    user.setEmail(email);
-
                     mUserDao.salvar(user);
 
                     setToastMessage("Cadastro atualizado");

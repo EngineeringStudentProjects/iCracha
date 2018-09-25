@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,8 @@ import br.edu.infnet.icracha.user.User;
 public class ManagerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private FirebaseAuth mAuth;
+
     private DrawerLayout mDrawerLayout;
     private Fragment mFragment;
     public static UserDAO mUserDao;
@@ -52,6 +56,8 @@ public class ManagerActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_main);
 
+        mAuth = FirebaseAuth.getInstance();
+
         Toolbar toolbar = findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -62,17 +68,31 @@ public class ManagerActivity extends AppCompatActivity
 
         user = (User) getIntent().getSerializableExtra("user");
 
-        mUserDao = new UserDAO();
+        //mUserDao = new UserDAO();
 
-        mReportDao = new ReportDAO(user.getCpf());
+        //mReportDao = new ReportDAO(user.getCpf());
 
-        mReportList = mReportDao.listar();
+        //mReportList = mReportDao.listar();
 
-        setFirstFragment();
+        //setFirstFragment();
 
         // atribui um "listener" ao navigationView
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        mUserDao = new UserDAO(currentUser.getUid());
+
+        mReportDao = new ReportDAO(currentUser.getUid());
+
+        mReportList = mReportDao.listar();
+
+        setFirstFragment();
 
     }
 
@@ -123,6 +143,7 @@ public class ManagerActivity extends AppCompatActivity
             case R.id.Logout:
                 Intent intent = new Intent(this, SigninActivity.class);
                 startActivity(intent);
+                mAuth.signOut();
                 finish();
                 break;
             default:

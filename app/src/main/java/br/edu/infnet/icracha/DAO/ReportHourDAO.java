@@ -22,8 +22,8 @@ public class ReportHourDAO {
     private List<ReportHour> mReportHourList = new ArrayList<>();
     private BaseAdapter adapter;
 
-    public ReportHourDAO(String cpf, String data, BaseAdapter adapter, List<ReportHour> reportHourList) {
-        mDatabaseRef = FirebaseSingleton.getInstance().getDatabase().getReference("reports").child(cpf).child(data);
+    public ReportHourDAO(String uid, String data, BaseAdapter adapter, List<ReportHour> reportHourList) {
+        mDatabaseRef = FirebaseSingleton.getInstance().getDatabase().getReference("reports").child(uid).child(data);
         this.adapter = adapter;
         this.mReportHourList = reportHourList;
         mDatabaseRef.addChildEventListener(carregar);

@@ -145,29 +145,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        style="@style/LabelTextView"
-                        android:text="@string/label_email" />
-
-                    <EditText
-                        android:id="@+id/edtEmail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:inputType="textEmailAddress"
-                        style="@style/FormTextView"
-                        android:hint="@string/edt_text_hint_email" />
-
-                </LinearLayout>
-
-                <LinearLayout
                     style="@style/TextViewDivider">
                 </LinearLayout>
 

@@ -27,6 +27,7 @@ import br.edu.infnet.icracha.barcode.BarcodeCaptureActivity;
 import br.edu.infnet.icracha.report.AttendanceReport;
 import br.edu.infnet.icracha.report.ReportHour;
 import br.edu.infnet.icracha.report.ReportHourAdapter;
+import br.edu.infnet.icracha.user.User;
 import br.edu.infnet.icracha.util.PontoHelper;
 
 import static br.edu.infnet.icracha.ManagerActivity.mReportDao;
@@ -60,7 +61,6 @@ public class StatusFragment extends Fragment {
     private ReportHourDAO mReportHourDao;
 
     private LocationManager locationManager;
-
 
     public StatusFragment() {
         // Required empty public constructor
@@ -187,7 +187,7 @@ public class StatusFragment extends Fragment {
 
         mAdapter = new ReportHourAdapter(getContext(), reportHourList);
 
-        mReportHourDao = new ReportHourDAO(user.getCpf(), data, mAdapter, reportHourList);
+        mReportHourDao = new ReportHourDAO(user.getuId(), data, mAdapter, reportHourList);
 
         lvwReportTime.setAdapter(mAdapter);
 

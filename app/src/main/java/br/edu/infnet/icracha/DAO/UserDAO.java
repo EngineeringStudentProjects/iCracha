@@ -18,41 +18,57 @@ public class UserDAO {
 
     private DatabaseReference mDatabaseRef;
     private List<User> mUsers = new ArrayList<>();
+    private User mUser;
+    private String mUID;
 
     public UserDAO() {
         mDatabaseRef = FirebaseSingleton.getInstance().getDatabase().getReference("users");
+        //mDatabaseRef.addChildEventListener(carregar);
+    }
+
+    public UserDAO(String uid) {
+        mDatabaseRef = FirebaseSingleton.getInstance().getDatabase().getReference("users");
         mDatabaseRef.addChildEventListener(carregar);
+        this.mUID = uid;
     }
 
     private ChildEventListener carregar = new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-            User user = dataSnapshot.getValue(User.class);
-            mUsers.add(user);
+            mUser = dataSnapshot.getValue(User.class);
+            mUsers.add(mUser);
+
+            for(User user : mUsers){
+                if(user.getuId() == mUID){
+                    mUser = user;
+                    break;
+                }
+            }
+
         }
 
         @Override
         public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-            User user = dataSnapshot.getValue(User.class);
+            mUser = dataSnapshot.getValue(User.class);
 
-            for(int i = 0; i < mUsers.size(); i++){
+            /*for(int i = 0; i < mUsers.size(); i++){
                 if(mUsers.get(i).getCpf().equals(user.getCpf())){
                     mUsers.set(i, user);
                     break;
                 }
-            }
+            }*/
         }
 
         @Override
         public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-            User user = dataSnapshot.getValue(User.class);
+            /*User user = dataSnapshot.getValue(User.class);
 
             for(int i = 0; i < mUsers.size(); i++){
                 if(mUsers.get(i).getCpf().equals(user.getCpf())){
                     mUsers.remove(user);
                     break;
                 }
-            }
+            }*/
         }
 
         @Override
@@ -67,15 +83,13 @@ public class UserDAO {
     };
 
     public void salvar(User user){
-        mDatabaseRef.child(user.getCpf()).setValue(user);
+        mDatabaseRef.child(user.getuId()).setValue(user);
     }
+
+    public User getUser(){ return mUser; }
 
     public List<User> listar(){
         return mUsers;
-    }
-
-    public void excluir(String cpf){
-        mDatabaseRef.child(cpf).removeValue();
     }
 
 

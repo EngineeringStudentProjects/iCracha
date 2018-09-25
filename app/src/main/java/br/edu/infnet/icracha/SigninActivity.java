@@ -1,6 +1,7 @@
 package br.edu.infnet.icracha;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,21 +10,30 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import br.edu.infnet.icracha.user.User;
+import br.edu.infnet.icracha.util.HashHandler;
 import br.edu.infnet.icracha.util.LoginHelper;
+
+import static br.edu.infnet.icracha.util.ValidateFields.validateEmail;
 
 public class SigninActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
     private EditText mUsername, mPassword;
     private TextView mLinkSignup;
-    private LoginHelper mLoginHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
-        mLoginHelper = new LoginHelper();
+        mAuth = FirebaseAuth.getInstance();
 
         mUsername = findViewById(R.id.input_username);
         mPassword = findViewById(R.id.input_password);
@@ -36,14 +46,41 @@ public class SigninActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+
+            Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+            startActivity(intent);
+            finish();
+            setToastMessage("Carregando...");
+
+        }
+    }
+
     private View.OnClickListener login = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
-            String username = mUsername.getText().toString().trim();
+            String email = mUsername.getText().toString().trim();
             String pass = mPassword.getText().toString();
 
-            User user = mLoginHelper.validateLogin(username, pass);
+            if(email.isEmpty() || pass.isEmpty()){
+                setToastMessage("Campos não podem estar em branco");
+            } else {
+                if(!validateEmail(email)) {
+                    setToastMessage("Email inválido");
+                } else {
+                    mAuth.signInWithEmailAndPassword(email, HashHandler.hashedString(pass))
+                            .addOnCompleteListener(requisicaoCompleta);
+                }
+            }
+
+
+            /*User user = mLoginHelper.validateLogin(email, pass);
 
             if(user != null){
 
@@ -55,9 +92,23 @@ public class SigninActivity extends AppCompatActivity {
 
             } else {
                 setToastMessage("Usuário ou senha incorretos");
+            }*/
+
+
+        }
+    };
+
+    private OnCompleteListener<AuthResult> requisicaoCompleta = new OnCompleteListener<AuthResult>() {
+        @Override
+        public void onComplete(@NonNull Task<AuthResult> task) {
+            if (task.isSuccessful()){
+                Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                setToastMessage("Login não realizado.");
+
             }
-
-
         }
     };
 

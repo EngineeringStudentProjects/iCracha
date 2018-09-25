@@ -9,17 +9,17 @@ import br.edu.infnet.icracha.util.HashHandler;
 public class LoginHelper {
 
     private UserDAO mUserDao;
-    private List<User> mUsers;
+    private User mUsers;
 
-    public LoginHelper(){
-        mUserDao = new UserDAO();
+    public LoginHelper(String uid){
+        mUserDao = new UserDAO(uid);
     }
 
-    public User validateLogin(String username, String password){
+    public User getUser(){
 
-        mUsers = mUserDao.listar();
+        return mUserDao.getUser();
 
-        for(User user : mUsers){
+        /*for(User user : mUsers){
             if(user.getUsername().equals(username)){
                 if(HashHandler.hashedString(password).equals(user.getPassword())){
                     return user;
@@ -27,9 +27,9 @@ public class LoginHelper {
             }
         }
 
-        return null;
+        return null;*/
     }
-
+/*
     public boolean userExists(User user){
 
         mUsers = mUserDao.listar();
@@ -43,6 +43,6 @@ public class LoginHelper {
         }
 
         return false;
-    }
+    }*/
 
 }

@@ -18,14 +18,27 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public User(String uid, String cpf, String name, String username, String password){
+        this(cpf, name, username, password);
+        this.uId = uid;
+    }
+
+    private String uId;
     private String cpf;
     private String name;
     private String username;
     private String password;
     private String birthday;
     private String phone;
-    private String email;
     private boolean status = false;
+
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
+    }
 
     public String getCpf() {
         return cpf;
@@ -81,13 +94,5 @@ public class User implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

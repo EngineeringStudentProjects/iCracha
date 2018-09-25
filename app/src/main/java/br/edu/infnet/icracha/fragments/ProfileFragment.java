@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
+
 import br.edu.infnet.icracha.ManagerActivity;
 import br.edu.infnet.icracha.R;
 
@@ -46,14 +49,22 @@ public class ProfileFragment extends Fragment {
         mTxtName = getView().findViewById(R.id.txtName);
         mTxtBirthday = getView().findViewById(R.id.txtBirthday);
         mTxtPhone = getView().findViewById(R.id.txtPhone);
-        mTxtEmail = getView().findViewById(R.id.txtEmail);
+
+        //Máscara Data
+        SimpleMaskFormatter simpleMaskDate = new SimpleMaskFormatter("NN/NN/NNNN");
+        MaskTextWatcher maskDate = new MaskTextWatcher(mTxtBirthday, simpleMaskDate);
+        mTxtBirthday.addTextChangedListener(maskDate);
+
+        //Máscara Data
+        SimpleMaskFormatter simpleMaskPhone = new SimpleMaskFormatter("(NN) NNN NNN NNN");
+        MaskTextWatcher maskPhone = new MaskTextWatcher(mTxtPhone, simpleMaskPhone);
+        mTxtBirthday.addTextChangedListener(maskPhone);
 
         mTxtCpf.setText(user.getCpf());
         mTxtUsername.setText(user.getUsername());
         mTxtName.setText(user.getName());
         mTxtBirthday.setText(user.getBirthday());
         mTxtPhone.setText(user.getPhone());
-        mTxtEmail.setText(user.getEmail());
     }
 
     @Override
